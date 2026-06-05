@@ -366,7 +366,8 @@ img {
   margin-top: 34px;
 }
 
-.hero-action .play-store {
+.hero-action .play-store,
+.cta-copy .play-store {
   background: linear-gradient(135deg, #a778ff, #7655f2 56%, #5f7df5);
   box-shadow: 0 14px 26px rgba(118, 85, 242, .26);
 }
@@ -389,6 +390,15 @@ img {
   color: #fff;
   background: linear-gradient(135deg, #1fbf75, #19a7c9);
   box-shadow: 0 14px 26px rgba(31, 191, 117, .22);
+  transition: background .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+/* 헤더 카테고리와 동일한 민트 그라데이션 호버 */
+.hero-action .play-store:hover,
+.cta-copy .play-store:hover {
+  background: linear-gradient(135deg, #20bfd0, #45d6ad);
+  box-shadow: 0 14px 26px rgba(25, 184, 199, .28);
+  transform: translateY(-2px);
 }
 
 .play-store span {
@@ -421,7 +431,6 @@ img {
 .card-bbok,
 .row-bbok,
 .hero-bbok,
-.wave-bbok,
 .stress-bbok {
   position: relative;
   background:
@@ -441,8 +450,6 @@ img {
 .card-bbok::after,
 .hero-bbok::before,
 .hero-bbok::after,
-.wave-bbok::before,
-.wave-bbok::after,
 .stress-bbok::before,
 .stress-bbok::after {
   content: "";
@@ -915,6 +922,20 @@ img {
   margin-left: calc(-1 * var(--section-x));
   margin-right: calc(-1 * var(--section-x));
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--section-x),
+    #000 calc(100% - var(--section-x)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--section-x),
+    #000 calc(100% - var(--section-x)),
+    transparent 100%
+  );
 }
 
 .character-track {
@@ -959,21 +980,17 @@ img {
   font-weight: 600;
 }
 
-/* 카드별 배경 톤 (마퀴 순서: 힐링→집중→파워→반짝 반복) */
-.character-track .character-card:nth-child(4n + 1) { background: #f1faf6; } /* 힐링 - 민트빛 미색 */
-.character-track .character-card:nth-child(4n + 2) { background: #f1f4fc; } /* 집중 - 블루빛 미색 */
-.character-track .character-card:nth-child(4n + 3) { background: #fdf4f1; } /* 파워 - 코랄빛 미색 */
-.character-track .character-card:nth-child(4n)     { background: #fdf8ec; } /* 반짝 - 크림빛 미색 */
+/* 카드별 배경 톤 (마퀴 순서: 힐링→집중→파워→반짝 반복) — 색 → 흰색 그라데이션 */
+.character-track .character-card:nth-child(4n + 1) { background: linear-gradient(165deg, #d9f2e8 0%, #fff 72%); } /* 힐링 - 민트 */
+.character-track .character-card:nth-child(4n + 2) { background: linear-gradient(165deg, #dde8fb 0%, #fff 72%); } /* 집중 - 블루 */
+.character-track .character-card:nth-child(4n + 3) { background: linear-gradient(165deg, #fde2da 0%, #fff 72%); } /* 파워 - 코랄 */
+.character-track .character-card:nth-child(4n)     { background: linear-gradient(165deg, #fceccb 0%, #fff 72%); } /* 반짝 - 크림 */
 
 .character-card p {
   margin-top: 6px;
   color: #5f5b92;
   font-size: 15px;
   font-weight: 500;
-}
-
-.playful {
-  transform: rotate(-4deg);
 }
 
 .cta-section {
@@ -984,9 +1001,7 @@ img {
   justify-content: center;
   overflow: hidden;
   padding: 42px var(--section-x) 34px;
-  background:
-    radial-gradient(circle at 78% 28%, rgba(255, 138, 114, .18), transparent 28%),
-    linear-gradient(111deg, #e9fbff, #f5fff8 48%, #fff4f0);
+  background: #fff;
 }
 
 .cta-copy {
@@ -1006,23 +1021,14 @@ img {
   justify-content: center;
 }
 
-.wave-bbok {
-  position: absolute;
-  right: clamp(22px, 8vw, 120px);
-  bottom: -54px;
-  width: 235px;
-  background: transparent;
-  box-shadow: none;
-}
-
 .cta-bubble-a { width: 43px; height: 43px; right: 31%; top: 32px; }
 .cta-bubble-b { width: 23px; height: 23px; right: 27%; top: 75px; }
 
 .site-footer {
   padding: 56px var(--section-x) 28px;
   color: #7b8497;
-  background: #f6f6fb;
-  border-top: 1px solid #eceaf4;
+  background: #efeafb;
+  border-top: 1px solid #e2daf6;
   font-size: 13px;
   font-weight: 400;
 }
@@ -1162,10 +1168,6 @@ img {
   .feature-grid {
     grid-template-columns: 1fr;
   }
-
-  .character-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 @media (max-width: 860px) {
@@ -1262,15 +1264,6 @@ img {
 
   .feature-card {
     grid-template-columns: 48px 1fr;
-  }
-
-  .character-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .wave-bbok {
-    opacity: .35;
-    right: -32px;
   }
 
   .footer-top {
@@ -1404,10 +1397,6 @@ img {
 
   .feature-card p {
     font-size: 14px;
-  }
-
-  .character-grid {
-    grid-template-columns: 1fr;
   }
 
   .cta-section h2,
